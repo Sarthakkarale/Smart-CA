@@ -3,9 +3,11 @@ from sqlalchemy.orm import Session
 
 from app.models.auth.user import User
 from app.schemas.auth.auth import RegisterRequest, LoginRequest
-from app.core.security import hash_password, verify_password, create_access_token
+from app.core.security import hash_password, verify_password
+from app.services.auth.token_service import TokenService
 from app.repositories.auth.user_repository import UserRepository
 from app.repositories.auth.role_repository import RoleRepository
+from app.services.auth.session_service import SessionService
 
 
 def register_user(user: RegisterRequest, db: Session):
@@ -64,23 +66,38 @@ def login_user(user: LoginRequest, db: Session):
             detail="Account is inactive."
         )
 
-    access_token = create_access_token(
-        data={
-            "sub": existing_user.email,
-            "user_id": existing_user.user_id,
-            "role_id": existing_user.role_id
-        }
+    access_token = TokenService.create_access_token(
+    data={
+        "sub": existing_user.email,
+        "user_id": existing_user.user_id,
+        "role_id": existing_user.role_id
+    }
+)
+
+    refresh_token = TokenService.create_refresh_token(
+    data={
+        "sub": existing_user.email,
+        "user_id": existing_user.user_id,
+        "role_id": existing_user.role_id
+    }
+)
+
+    SessionService.create_session(
+    db=db,
+    user_id=existing_user.user_id,
+    refresh_token=refresh_token
     )
 
     return {
-        "success": True,
-        "message": "Login successful.",
-        "access_token": access_token,
-        "token_type": "bearer",
-        "user": {
-            "user_id": existing_user.user_id,
-            "full_name": existing_user.full_name,
-            "email": existing_user.email,
-            "role_id": existing_user.role_id
-        }
+    "success": True,
+    "message": "Login successful.",
+    "access_token": access_token,
+    "refresh_token": refresh_token,
+    "token_type": "bearer",
+    "user": {
+        "user_id": existing_user.user_id,
+        "full_name": existing_user.full_name,
+        "email": existing_user.email,
+        "role_id": existing_user.role_id
     }
+}

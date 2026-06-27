@@ -1,4 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field
+class RefreshTokenRequest(BaseModel):
+    refresh_token: str
 
 
 class RegisterRequest(BaseModel):

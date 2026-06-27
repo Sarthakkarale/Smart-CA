@@ -1,11 +1,17 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from app.schemas.auth.auth import RegisterRequest, LoginRequest, RefreshTokenRequest
+from app.services.auth.session_service import SessionService
 
 from app.schemas.auth.auth import RegisterRequest, LoginRequest
 from app.db.database import get_db
 from app.services.auth.auth_service import register_user, login_user
 from app.core.security import get_current_user
 from app.models.auth.user import User
+from pydantic import BaseModel
+
+class RefreshTokenRequest(BaseModel):
+    refresh_token: str
 
 
 router = APIRouter(
@@ -13,6 +19,15 @@ router = APIRouter(
     tags=["Authentication"]
 )
 
+@router.post("/refresh")
+def refresh_token(
+    token_data: RefreshTokenRequest,
+    db: Session = Depends(get_db)
+):
+    return SessionService.refresh_access_token(
+        db=db,
+        refresh_token=token_data.refresh_token
+    )
 
 @router.post("/register")
 def register(
@@ -42,3 +57,13 @@ def get_my_profile(
         "role_id": current_user.role_id,
         "is_active": current_user.is_active
     }
+
+@router.post("/logout")
+def logout(
+    token_data: RefreshTokenRequest,
+    db: Session = Depends(get_db)
+):
+    return SessionService.logout(
+        db=db,
+        refresh_token=token_data.refresh_token
+    )
