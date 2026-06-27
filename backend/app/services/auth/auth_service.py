@@ -1,15 +1,16 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.models.auth.user import User, Role
-from app.schemas.auth.auth import RegisterRequest
-from app.core.security import hash_password
+from app.models.auth.user import User
+from app.schemas.auth.auth import RegisterRequest, LoginRequest
 from app.core.security import hash_password, verify_password, create_access_token
+from app.repositories.auth.user_repository import UserRepository
+from app.repositories.auth.role_repository import RoleRepository
 
 
 def register_user(user: RegisterRequest, db: Session):
 
-    existing_user = db.query(User).filter(User.email == user.email).first()
+    existing_user = UserRepository.get_by_email(db, user.email)
 
     if existing_user:
         raise HTTPException(
@@ -17,12 +18,12 @@ def register_user(user: RegisterRequest, db: Session):
             detail="Email already registered."
         )
 
-    user_role = db.query(Role).filter(Role.role_name == "USER").first()
+    user_role = RoleRepository.get_by_name(db, "USER")
 
     if not user_role:
         raise HTTPException(
             status_code=500,
-            detail="USER role not found in roles table."
+            detail="USER role not found."
         )
 
     new_user = User(
@@ -33,21 +34,17 @@ def register_user(user: RegisterRequest, db: Session):
         role_id=user_role.role_id
     )
 
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
+    UserRepository.create(db, new_user)
 
     return {
         "success": True,
         "message": "Registration successful."
     }
-from app.core.security import verify_password
-from app.schemas.auth.auth import LoginRequest
 
 
 def login_user(user: LoginRequest, db: Session):
 
-    existing_user = db.query(User).filter(User.email == user.email).first()
+    existing_user = UserRepository.get_by_email(db, user.email)
 
     if not existing_user:
         raise HTTPException(
@@ -68,22 +65,22 @@ def login_user(user: LoginRequest, db: Session):
         )
 
     access_token = create_access_token(
-    data={
-        "sub": existing_user.email,
-        "user_id": existing_user.user_id,
-        "role_id": existing_user.role_id
-    }
-)
+        data={
+            "sub": existing_user.email,
+            "user_id": existing_user.user_id,
+            "role_id": existing_user.role_id
+        }
+    )
 
     return {
-    "success": True,
-    "message": "Login successful.",
-    "access_token": access_token,
-    "token_type": "bearer",
-    "user": {
-        "user_id": existing_user.user_id,
-        "full_name": existing_user.full_name,
-        "email": existing_user.email,
-        "role_id": existing_user.role_id
-    }
+        "success": True,
+        "message": "Login successful.",
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user": {
+            "user_id": existing_user.user_id,
+            "full_name": existing_user.full_name,
+            "email": existing_user.email,
+            "role_id": existing_user.role_id
+        }
     }
