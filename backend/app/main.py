@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 
 from app.core.config import settings
+
 from app.api.auth.auth_routes import router as auth_router
+from app.api.profile.profile_routes import router as profile_router
+
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -9,10 +12,11 @@ app = FastAPI(
 )
 
 app.include_router(auth_router)
+app.include_router(profile_router)
 
 
 @app.get("/")
 def home():
     return {
-        "message": "Smart CA Authentication Backend Running"
+        "message": "Smart CA Backend Running"
     }

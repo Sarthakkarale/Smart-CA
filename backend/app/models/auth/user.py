@@ -28,3 +28,9 @@ class User(Base):
     )
 
     role = relationship("Role", back_populates="users")
+
+    financial_profile = relationship(
+    "FinancialProfile",
+    back_populates="user",
+    uselist=False
+)
