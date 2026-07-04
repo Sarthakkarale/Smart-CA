@@ -116,7 +116,7 @@ def login_form():
             st.success(response["message"])
 
             # Profile check will be added later
-            st.session_state.page = "dashboard"
+            st.session_state.page = "profile"
 
             st.rerun()
 

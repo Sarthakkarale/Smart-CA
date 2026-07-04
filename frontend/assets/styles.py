@@ -171,7 +171,45 @@ img{
     border-radius:14px;
 
 }
+//* =======================================================
+PROFILE PAGE
+======================================================= */
 
+.profile-title{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#0F172A;
+
+    margin-bottom:4px;
+
+}
+
+.profile-subtitle{
+
+    font-size:17px;
+
+    color:#64748B;
+
+    margin-bottom:30px;
+
+}
+
+.profile-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    border:1px solid #E2E8F0;
+
+    box-shadow:0 8px 24px rgba(15,23,42,.06);
+
+}
 </style>
 """,
         unsafe_allow_html=True,
