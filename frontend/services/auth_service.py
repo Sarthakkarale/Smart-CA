@@ -1,179 +1,41 @@
-"""
-Authentication Service
-----------------------
-Handles all authentication API calls.
-"""
-
 import requests
 
-from services.api import (
-    LOGIN_URL,
-    REGISTER_URL,
-    LOGOUT_URL,
-    ME_URL,
-    REQUEST_TIMEOUT,
-    DEFAULT_HEADERS,
-)
-
+API_BASE_URL = "http://localhost:8000" # Update this if your backend runs on a different port/path
 
 class AuthService:
-    """Authentication API Service"""
-
+    
     @staticmethod
-    def login(email: str, password: str) -> dict:
-        """
-        Authenticate user.
-        """
-
-        payload = {
-            "email": email,
-            "password": password,
-        }
-
+    def login(email: str, password: str):
         try:
-
+            # Sending as standard JSON for your Pydantic model
+            payload = {
+                "email": email, 
+                "password": password
+            }
+            
             response = requests.post(
-                LOGIN_URL,
-                json=payload,
-                headers=DEFAULT_HEADERS,
-                timeout=REQUEST_TIMEOUT,
+                f"{API_BASE_URL}/auth/login", 
+                json=payload,  # <-- Changed from data=payload to json=payload
+                timeout=10
             )
-
-            data = response.json()
-
-            if response.status_code == 200:
-                return data
-
-            return {
-                "success": False,
-                "message": data.get("detail", "Login failed."),
-            }
-
-        except requests.exceptions.ConnectionError:
-            return {
-                "success": False,
-                "message": "Unable to connect to backend server.",
-            }
-
-        except requests.exceptions.Timeout:
-            return {
-                "success": False,
-                "message": "Request timed out.",
-            }
-
-        except Exception as e:
-            return {
-                "success": False,
-                "message": str(e),
-            }
+            return response
+        except requests.exceptions.RequestException:
+            return None
 
     @staticmethod
-    def register(
-        full_name: str,
-        email: str,
-        phone: str,
-        password: str,
-    ) -> dict:
-        """
-        Register new user.
-        """
-
-        payload = {
-            "full_name": full_name,
-            "email": email,
-            "phone": phone,
-            "password": password,
-        }
-
+    def register(full_name: str, email: str, password: str):
         try:
-
+            payload = {
+                "full_name": full_name,
+                "email": email,
+                "password": password
+            }
+            
             response = requests.post(
-                REGISTER_URL,
-                json=payload,
-                headers=DEFAULT_HEADERS,
-                timeout=REQUEST_TIMEOUT,
+                f"{API_BASE_URL}/auth/register", # Adjust endpoint path to match your FastAPI router
+                json=payload, 
+                timeout=10
             )
-
-            data = response.json()
-
-            if response.status_code == 200:
-                return data
-
-            return {
-                "success": False,
-                "message": data.get("detail", "Registration failed."),
-            }
-
-        except requests.exceptions.ConnectionError:
-            return {
-                "success": False,
-                "message": "Unable to connect to backend server.",
-            }
-
-        except requests.exceptions.Timeout:
-            return {
-                "success": False,
-                "message": "Request timed out.",
-            }
-
-        except Exception as e:
-            return {
-                "success": False,
-                "message": str(e),
-            }
-
-    @staticmethod
-    def get_current_user(access_token: str) -> dict:
-        """
-        Get logged-in user details.
-        """
-
-        headers = {
-            **DEFAULT_HEADERS,
-            "Authorization": f"Bearer {access_token}",
-        }
-
-        try:
-
-            response = requests.get(
-                ME_URL,
-                headers=headers,
-                timeout=REQUEST_TIMEOUT,
-            )
-
-            return response.json()
-
-        except Exception as e:
-
-            return {
-                "success": False,
-                "message": str(e),
-            }
-
-    @staticmethod
-    def logout(refresh_token: str) -> dict:
-        """
-        Logout user.
-        """
-
-        payload = {
-            "refresh_token": refresh_token,
-        }
-
-        try:
-
-            response = requests.post(
-                LOGOUT_URL,
-                json=payload,
-                headers=DEFAULT_HEADERS,
-                timeout=REQUEST_TIMEOUT,
-            )
-
-            return response.json()
-
-        except Exception as e:
-
-            return {
-                "success": False,
-                "message": str(e),
-            }
+            return response
+        except requests.exceptions.RequestException:
+            return None

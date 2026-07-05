@@ -284,3 +284,81 @@ ADD COLUMN is_revoked BOOLEAN DEFAULT FALSE;
 DESC user_sessions;
 SELECT * FROM user_sessions;
 select * from users;
+
+
+
+SHOW TABLES;
+SELECT * FROM roles;
+
+USE smart_ca;
+
+ALTER TABLE user_sessions
+ADD COLUMN is_revoked BOOLEAN DEFAULT FALSE,
+ADD COLUMN last_used_at TIMESTAMP NULL,
+ADD COLUMN device_name VARCHAR(150);
+
+DESC user_sessions;
+
+select * from financial_profile;
+
+DROP TABLE financial_profile;
+
+
+CREATE TABLE financial_profile (
+
+    profile_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    user_id INT UNIQUE NOT NULL,
+
+    -- Personal
+    dob DATE,
+    gender VARCHAR(20),
+    phone VARCHAR(20),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    pincode VARCHAR(10),
+
+    -- Tax
+    pan VARCHAR(20),
+    aadhaar VARCHAR(20),
+    tax_regime VARCHAR(30),
+    resident_status VARCHAR(30),
+    gst_registered BOOLEAN DEFAULT FALSE,
+    gst_number VARCHAR(30),
+    itr_history VARCHAR(30),
+
+    -- Professional
+    employment_type VARCHAR(50),
+    occupation VARCHAR(100),
+    company_name VARCHAR(150),
+    annual_income DECIMAL(12,2),
+    experience INT,
+    business_type VARCHAR(100),
+
+    -- Financial
+    bank_name VARCHAR(100),
+    monthly_expense DECIMAL(12,2),
+    existing_investments DECIMAL(12,2),
+    loan_amount DECIMAL(12,2),
+    insurance_cover DECIMAL(12,2),
+    emergency_fund DECIMAL(12,2),
+
+    -- Goals
+    retirement BOOLEAN DEFAULT FALSE,
+    buy_house BOOLEAN DEFAULT FALSE,
+    buy_car BOOLEAN DEFAULT FALSE,
+    child_education BOOLEAN DEFAULT FALSE,
+    wealth_creation BOOLEAN DEFAULT FALSE,
+    travel BOOLEAN DEFAULT FALSE,
+    other_goal TEXT,
+    target_year INT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);

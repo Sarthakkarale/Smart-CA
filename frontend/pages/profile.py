@@ -1,5 +1,7 @@
 import streamlit as st
 import datetime
+from services.profile_service import ProfileService
+from utils.profile_mapper import map_profile
 
 # ==========================================================
 # MAIN PAGE FUNCTION
@@ -13,13 +15,16 @@ def profile_page():
         st.session_state.profile_step = 1
 
     if "profile" not in st.session_state:
+        # Fetch dynamic user data from login
+        user = st.session_state.get("user", {})
+        
         st.session_state.profile = {
             "personal": {
-                "full_name": "Sarthak Karale",
+                "full_name": user.get("full_name", ""),
                 "dob": datetime.date(2002, 7, 4),
                 "gender": "Male",
                 "phone": "+91 98765 43210",
-                "email": "sarthak.karale@gmail.com",
+                "email": user.get("email", ""),
                 "city": "Pune",
                 "state": "Maharashtra",
                 "pincode": "411001"
@@ -88,12 +93,13 @@ def profile_page():
         st.title("Complete Your Profile")
         st.caption("Help us know you better to provide personalized financial insights.")
     with right_header:
+        display_name = st.session_state.get("user", {}).get("full_name", "User")
         st.markdown(
-            """
+            f"""
             <div style="display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
                 <div style="font-size: 20px; color: gray;">❓</div>
                 <div style="text-align: right; line-height: 1.2;">
-                    <b>Sarthak Karale</b><br>
+                    <b>{display_name}</b><br>
                     <span style="color:#4B0082; font-size: 14px;">Individual</span>
                 </div>
             </div>
@@ -219,7 +225,7 @@ def profile_page():
 
             # NAVIGATION AND VALIDATION
             st.write("")
-            error_placeholder = st.empty() # Placeholder for validation messages
+            error_placeholder = st.empty()
             st.write("")
             
             btn_c1, empty_c, btn_c2 = st.columns([1, 4, 1])
@@ -259,13 +265,42 @@ def profile_page():
                         f = profile["financial"]
                         if not f["bank_name"] or f["monthly_expense"] <= 0:
                             is_valid = False
-                            
-                    # Step 5 has no strict required fields, so it automatically passes.
                     
-                    # --- Action ---
+                    # --- Navigation & Integration ---
                     if is_valid:
-                        st.session_state.profile_step += 1
-                        st.rerun()
+                        # -----------------------------
+                        # Next Step
+                        # -----------------------------
+                        if current < 5:
+                            st.session_state.profile_step += 1
+                            st.rerun()
+
+                        # -----------------------------
+                        # Save Profile
+                        # -----------------------------
+                        payload = map_profile(
+                            st.session_state.profile
+                        )
+
+                        with st.spinner("Saving profile..."):
+                            response = ProfileService.create_profile(
+                                payload
+                            )
+
+                        if response is None:
+                            st.error("Unable to connect to backend.")
+
+                        elif response.status_code in [200, 201]:
+                            st.session_state.profile_step = 6
+                            st.success("Profile Saved Successfully")
+                            st.rerun()
+
+                        else:
+                            try:
+                                error = response.json()
+                                st.error(error["detail"])
+                            except Exception:
+                                st.error(response.text)
                     else:
                         error_placeholder.error("⚠️ Please fill in all required fields marked with *")
 
