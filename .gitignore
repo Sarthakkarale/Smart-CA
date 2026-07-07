@@ -33,3 +33,9 @@ Thumbs.db
 
 # Build Files
 build/
+
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
