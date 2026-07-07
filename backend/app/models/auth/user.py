@@ -33,4 +33,11 @@ class User(Base):
     "FinancialProfile",
     back_populates="user",
     uselist=False
+
+    
+    )
+documents = relationship(
+    "Document",
+    back_populates="user",
+    cascade="all, delete-orphan"
 )
