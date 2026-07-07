@@ -1,4 +1,5 @@
 import streamlit as st
+<<<<<<< Updated upstream
 from streamlit_option_menu import option_menu
 from pages.profile import profile_page
 from pages.dashboard import dashboard_page
@@ -163,3 +164,78 @@ else:
     else:
         st.info(f"The {selected} page is under construction.")
         
+=======
+
+import config.settings as settings
+
+from state.session_state import init_session
+
+from components.theme import load_theme
+
+from utils.router import get_current_page
+
+# Authentication
+from pages.auth.login import render_page as login_page
+from pages.auth.register import render_page as register_page
+
+# Dashboard
+from pages.dashboard.dashboard import render_page as dashboard_page
+
+# Profile
+from pages.profile.create_profile import render_page as create_profile_page
+
+
+# ----------------------------------------------------
+# Page Configuration
+# ----------------------------------------------------
+
+st.set_page_config(
+
+    page_title=settings.APP_NAME,
+
+    page_icon=settings.APP_ICON,
+
+    layout="wide",
+
+    initial_sidebar_state="collapsed",
+
+)
+
+# ----------------------------------------------------
+# Theme
+# ----------------------------------------------------
+
+load_theme()
+
+# ----------------------------------------------------
+# Session
+# ----------------------------------------------------
+
+init_session()
+
+page = get_current_page()
+
+# ----------------------------------------------------
+# Router
+# ----------------------------------------------------
+
+if page == "login":
+
+    login_page()
+
+elif page == "register":
+
+    register_page()
+
+elif page == "dashboard":
+
+    dashboard_page()
+
+elif page == "create_profile":
+
+    create_profile_page()
+
+else:
+
+    login_page()
+>>>>>>> Stashed changes

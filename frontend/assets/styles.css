@@ -1,0 +1,1101 @@
+/*=========================================================
+ Smart CA
+ Global Design System
+ Version : 1.0
+=========================================================*/
+
+/*=========================================================
+ GOOGLE FONT
+=========================================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/*=========================================================
+ COLOR SYSTEM
+=========================================================*/
+
+:root{
+
+    --primary:#6D5EF8;
+    --primary-light:#8B7CFF;
+
+    --secondary:#EEF2FF;
+
+    --success:#10B981;
+    --danger:#EF4444;
+    --warning:#F59E0B;
+
+    --background:#F5F7FB;
+
+    --card:#FFFFFF;
+
+    --sidebar:#111827;
+
+    --text:#111827;
+
+    --text-light:#64748B;
+
+    --border:#E5E7EB;
+
+    --radius:20px;
+
+    --shadow:
+        0 12px 30px rgba(0,0,0,.08);
+
+}
+
+/*=========================================================
+ RESET
+=========================================================*/
+
+html,
+body,
+[class*="css"]{
+
+    font-family:'Inter',sans-serif;
+
+}
+
+/*=========================================================
+ STREAMLIT OVERRIDE
+=========================================================*/
+
+.stApp{
+
+    background:var(--background);
+
+}
+
+.main .block-container{
+
+    max-width:1450px;
+
+    padding-top:1.5rem;
+
+    padding-bottom:2rem;
+
+    padding-left:2rem;
+
+    padding-right:2rem;
+
+}
+
+/* Hide Streamlit Branding */
+
+#MainMenu{
+
+    visibility:hidden;
+
+}
+
+footer{
+
+    visibility:hidden;
+
+}
+
+header{
+
+    visibility:hidden;
+
+}
+
+/*=========================================================
+ TYPOGRAPHY
+=========================================================*/
+
+h1{
+
+    color:var(--text);
+
+    font-weight:800;
+
+    font-size:38px;
+
+}
+
+h2{
+
+    color:var(--text);
+
+    font-weight:700;
+
+}
+
+h3{
+
+    color:var(--text);
+
+    font-weight:600;
+
+}
+
+p{
+
+    color:var(--text-light);
+
+    line-height:1.7;
+
+}
+
+small{
+
+    color:var(--text-light);
+
+}
+/*=========================================================
+ BUTTONS
+=========================================================*/
+
+/* Primary Button */
+
+.stButton > button{
+
+    width:100%;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.25s ease;
+
+    box-shadow:0 10px 24px rgba(109,94,248,.25);
+
+}
+
+.stButton > button:hover{
+
+    background:#5A4BE8;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 16px 32px rgba(109,94,248,.35);
+
+}
+
+.stButton > button:focus{
+
+    border:none;
+
+    outline:none;
+
+}
+
+
+/*=========================================================
+ TEXT INPUT
+=========================================================*/
+
+.stTextInput input{
+
+    height:52px;
+
+    border-radius:14px;
+
+    border:1px solid var(--border);
+
+    background:white;
+
+    padding-left:14px;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+.stTextInput input:focus{
+
+    border:2px solid var(--primary);
+
+    box-shadow:0 0 0 4px rgba(109,94,248,.15);
+
+}
+
+
+/*=========================================================
+ NUMBER INPUT
+=========================================================*/
+
+.stNumberInput input{
+
+    height:52px;
+
+    border-radius:14px;
+
+    border:1px solid var(--border);
+
+}
+
+
+/*=========================================================
+ SELECT BOX
+=========================================================*/
+
+.stSelectbox > div{
+
+    border-radius:14px;
+
+}
+
+
+/*=========================================================
+ MULTISELECT
+=========================================================*/
+
+.stMultiSelect{
+
+    border-radius:14px;
+
+}
+
+
+/*=========================================================
+ TEXT AREA
+=========================================================*/
+
+.stTextArea textarea{
+
+    border-radius:16px;
+
+    border:1px solid var(--border);
+
+}
+
+
+/*=========================================================
+ CHECKBOX
+=========================================================*/
+
+.stCheckbox{
+
+    font-size:15px;
+
+}
+
+
+/*=========================================================
+ RADIO BUTTON
+=========================================================*/
+
+.stRadio{
+
+    padding-top:8px;
+
+}
+
+
+/*=========================================================
+ FORM
+=========================================================*/
+
+form{
+
+    background:white;
+
+    padding:28px;
+
+    border-radius:20px;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/*=========================================================
+ LABELS
+=========================================================*/
+
+label{
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+
+/*=========================================================
+ DIVIDER
+=========================================================*/
+
+hr{
+
+    border:none;
+
+    border-top:1px solid var(--border);
+
+}
+
+
+/*=========================================================
+ METRIC
+=========================================================*/
+
+[data-testid="stMetric"]{
+
+    background:white;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/*=========================================================
+ PROGRESS BAR
+=========================================================*/
+
+.stProgress > div > div{
+
+    background:var(--primary);
+
+}
+
+
+/*=========================================================
+ SUCCESS ALERT
+=========================================================*/
+
+.stSuccess{
+
+    border-radius:16px;
+
+}
+
+
+/*=========================================================
+ ERROR ALERT
+=========================================================*/
+
+.stError{
+
+    border-radius:16px;
+
+}
+
+
+/*=========================================================
+ WARNING ALERT
+=========================================================*/
+
+.stWarning{
+
+    border-radius:16px;
+
+}
+
+
+/*=========================================================
+ INFO ALERT
+=========================================================*/
+
+.stInfo{
+
+    border-radius:16px;
+
+}
+/*=========================================================
+DASHBOARD LAYOUT
+=========================================================*/
+
+.dashboard-container{
+
+    display:flex;
+
+    gap:24px;
+
+}
+
+.content-container{
+
+    padding:20px;
+
+}
+
+
+/*=========================================================
+CARD SYSTEM
+=========================================================*/
+
+.card{
+
+    background:var(--card);
+
+    border-radius:20px;
+
+    padding:24px;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:20px;
+
+}
+
+.card-title{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    margin-bottom:8px;
+
+}
+
+.card-subtitle{
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+    margin-bottom:20px;
+
+}
+
+
+/*=========================================================
+KPI CARD
+=========================================================*/
+
+.metric-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:24px;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+    transition:.25s;
+
+}
+
+.metric-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 36px rgba(0,0,0,.12);
+
+}
+
+.metric-value{
+
+    font-size:34px;
+
+    font-weight:800;
+
+    color:var(--text);
+
+}
+
+.metric-title{
+
+    font-size:15px;
+
+    color:var(--text-light);
+
+}
+
+.metric-change-positive{
+
+    color:var(--success);
+
+    font-weight:700;
+
+}
+
+.metric-change-negative{
+
+    color:var(--danger);
+
+    font-weight:700;
+
+}
+
+
+/*=========================================================
+CHART CARD
+=========================================================*/
+
+.chart-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/*=========================================================
+PROFILE CARD
+=========================================================*/
+
+.profile-card{
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:24px;
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+}
+
+.avatar{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:36px;
+
+    font-weight:700;
+
+    margin:auto;
+
+}
+
+
+/*=========================================================
+AI CARD
+=========================================================*/
+
+.ai-card{
+
+    background:white;
+
+    border-left:6px solid var(--primary);
+
+    border-radius:18px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.ai-title{
+
+    font-size:17px;
+
+    font-weight:700;
+
+}
+
+.ai-description{
+
+    color:var(--text-light);
+
+    line-height:1.7;
+
+    margin-top:10px;
+
+}
+
+
+/*=========================================================
+SIDEBAR
+=========================================================*/
+
+.sidebar-card{
+
+    background:var(--sidebar);
+
+    color:white;
+
+    border-radius:24px;
+
+    padding:28px;
+
+    min-height:92vh;
+
+}
+
+.sidebar-title{
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.sidebar-subtitle{
+
+    color:#CBD5E1;
+
+    font-size:14px;
+
+}
+
+.sidebar-divider{
+
+    margin:22px 0;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+
+/*=========================================================
+MENU ITEM
+=========================================================*/
+
+.menu-item{
+
+    padding:14px 18px;
+
+    border-radius:14px;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.menu-item:hover{
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.menu-item-active{
+
+    background:var(--primary);
+
+}
+
+
+/*=========================================================
+TOP NAVBAR
+=========================================================*/
+
+.topbar{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px 24px;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:20px;
+
+}
+
+
+/*=========================================================
+TABLES
+=========================================================*/
+
+table{
+
+    border-collapse:collapse;
+
+    width:100%;
+
+}
+
+th{
+
+    background:#F8FAFC;
+
+    padding:14px;
+
+    text-align:left;
+
+}
+
+td{
+
+    padding:14px;
+
+    border-top:1px solid var(--border);
+
+}
+
+
+/*=========================================================
+BADGES
+=========================================================*/
+
+.badge{
+
+    background:var(--secondary);
+
+    color:var(--primary);
+
+    padding:6px 12px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+/*=========================================================
+FOOTER
+=========================================================*/
+
+.footer{
+
+    margin-top:40px;
+
+    padding:20px;
+
+    text-align:center;
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+}
+/*=========================================================
+AUTHENTICATION
+=========================================================*/
+
+.auth-container{
+
+    min-height:92vh;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.auth-left{
+
+    background:linear-gradient(
+        180deg,
+        #111827,
+        #1F2937
+    );
+
+    border-radius:28px;
+
+    padding:50px;
+
+    min-height:760px;
+
+    color:white;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.18);
+
+}
+
+.auth-right{
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:50px;
+
+    min-height:760px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.auth-logo{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:18px;
+
+    background:var(--primary);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:white;
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+.auth-title{
+
+    font-size:42px;
+
+    font-weight:800;
+
+    color:white;
+
+    margin-top:40px;
+
+}
+
+.auth-description{
+
+    color:#CBD5E1;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+}
+
+/*=========================================================
+WIZARD
+=========================================================*/
+
+.wizard-card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:22px;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+}
+
+.wizard-step{
+
+    text-align:center;
+
+    font-weight:600;
+
+}
+
+.wizard-step-active{
+
+    color:var(--primary);
+
+    font-weight:700;
+
+}
+
+.wizard-step-completed{
+
+    color:var(--success);
+
+    font-weight:700;
+
+}
+
+/*=========================================================
+SECTION TITLE
+=========================================================*/
+
+.section-title{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    margin-bottom:10px;
+
+}
+
+.section-subtitle{
+
+    color:var(--text-light);
+
+    margin-bottom:25px;
+
+}
+
+/*=========================================================
+UTILITY CLASSES
+=========================================================*/
+
+.mt-1{margin-top:10px;}
+.mt-2{margin-top:20px;}
+.mt-3{margin-top:30px;}
+.mt-4{margin-top:40px;}
+
+.mb-1{margin-bottom:10px;}
+.mb-2{margin-bottom:20px;}
+.mb-3{margin-bottom:30px;}
+.mb-4{margin-bottom:40px;}
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+.full-width{
+
+    width:100%;
+
+}
+
+/*=========================================================
+SCROLLBAR
+=========================================================*/
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#ECEFF5;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#C5C9D6;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary);
+
+}
+
+/*=========================================================
+ANIMATIONS
+=========================================================*/
+
+.card,
+.metric-card,
+.chart-card,
+.profile-card,
+.ai-card{
+
+    transition:all .25s ease;
+
+}
+
+.card:hover,
+.chart-card:hover,
+.profile-card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/*=========================================================
+RESPONSIVE
+=========================================================*/
+
+@media screen and (max-width:992px){
+
+    .main .block-container{
+
+        padding-left:1rem;
+
+        padding-right:1rem;
+
+    }
+
+    .auth-left{
+
+        min-height:auto;
+
+        margin-bottom:20px;
+
+    }
+
+    .auth-right{
+
+        min-height:auto;
+
+    }
+
+}
+
+@media screen and (max-width:768px){
+
+    h1{
+
+        font-size:30px;
+
+    }
+
+    .metric-value{
+
+        font-size:28px;
+
+    }
+
+    .card{
+
+        padding:18px;
+
+    }
+
+}

@@ -2,26 +2,26 @@
 __pycache__/
 *.py[cod]
 *.pyo
-*.pyd
-.venv/
+
+# Virtual Environment
+myenv/
 venv/
-env/
 
-# Node.js
-node_modules/
-dist/
-
-# Environment Variables
+# Environment
 .env
 
 # VS Code
 .vscode/
 
-# OS Files
-.DS_Store
-Thumbs.db
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
 
 # Logs
+<<<<<<< Updated upstream
 *.log
 
 # Database
@@ -39,3 +39,6 @@ venv/
 __pycache__/
 *.pyc
 .env
+=======
+*.log
+>>>>>>> Stashed changes
